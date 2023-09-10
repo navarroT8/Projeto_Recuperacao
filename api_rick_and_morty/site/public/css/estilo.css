@@ -21,7 +21,7 @@ body {
 
 .header {
   height: var(--tamanho-header);
-  border-bottom: 2px solid #32cd44;
+  border-bottom: 2px solid #32cd35;
 }
 
 .header .container {
@@ -32,7 +32,7 @@ body {
 
 .header a {
   text-decoration: none;
-  color: #32cd44;
+  color: #32c3cd;
 }
 
 .agora {
@@ -45,7 +45,7 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  color: #3cdc3a;
+  color: #32c3cd;
 }
 
 .titulo {
@@ -110,7 +110,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #32cd445b;
+  background-color: #1aff003e;
   border-radius: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -135,13 +135,13 @@ body {
 
 .card {
   width: 30%;
-  background-color: #c8c6c68c;
+  background-color: #64f7dc64;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  color: rgb(0, 0, 0);
+  color: #044000;
   row-gap: 20px;
 }
 
@@ -188,11 +188,11 @@ body {
   cursor: pointer;
   font-family: "Barlow", sans-serif;
   border: 0;
-  border-radius: 5px;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 18px;
   color: #fff;
-  background-color: #1e00ff;
+  background-color: #32b9cd;
   width: 120px;
   height: 30px;
   align-self: center;

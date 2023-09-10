@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rick And Morty | Cadastro</title>
+    <title> Cadastro</title>
 
 
     <script src="./js/funcoes.js"></script>
@@ -60,8 +60,7 @@
                 <div class="formulario">
 
                     <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
+                        Aqui é onde eu pego os dados do usuário e guardo numa input
                      -->
 
                     <div class="campo">
@@ -114,15 +113,14 @@
     function cadastrar() {
         aguardar();
 
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
+        //Aqui é onde eu recupero o valor da nova input pelo nome do id
         var nomeVar = nome_input.value;
         var emailVar = email_input.value;
         var cpfVar = cpf_input.value;
         var senhaVar = senha_input.value;
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-
+        // aqui é onde eu faço as validações dos dados 
         if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
@@ -155,7 +153,7 @@
             setInterval(sumirMensagem, 5000)
         }
 
-        // Enviando o valor da nova input
+        // Aqui estou enviando o valor da nova input
         fetch("/usuarios/cadastrar", {
             method: "POST",
             headers: {
