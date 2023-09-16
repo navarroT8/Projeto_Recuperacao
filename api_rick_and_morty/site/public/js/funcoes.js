@@ -1,4 +1,4 @@
-// sessão
+// essa sessão é onde uso para poder validar a sessão, para ele puxar o id o email e o nome do usuário.
 function validarSessao() {
     // aguardar();
 
@@ -16,20 +16,20 @@ function validarSessao() {
         window.location = "../login.html";
     }
 }
-
+// essa função serve para limpar os campos do login.
 function limparSessao() {
     // aguardar();
     sessionStorage.clear();
     // finalizarAguardar();
     window.location = "../login.html";
 }
-
+// essa função é de carregamento, ela é um loading como já diz, serve para carregar a página.
 // carregamento (loading)
 function aguardar() {
     var divAguardar = document.getElementById("div_aguardar");
     divAguardar.style.display = "flex";
 }
-
+// essa função é praticamente igual a função acima.
 function finalizarAguardar(texto) {
     var divAguardar = document.getElementById("div_aguardar");
     divAguardar.style.display = "none";

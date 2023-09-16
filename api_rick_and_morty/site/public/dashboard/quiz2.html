@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Quiz</title>
+    <title>Quiz</title>
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="dashboards.css">
@@ -31,6 +31,7 @@
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
+<!-- Aqui é para validar a sessão, se caso nao tiver nenhum usuario conectado ele manda para o login. -->
 <body onload="validarSessao()">
 
 
@@ -38,7 +39,7 @@
         <div class="header-left">
             <h1><img src="https://logosmarcas.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
                     style="width: 270px; height: 160px;"></h1>
-
+              <!-- Botões para navegar na aba de quiz e gráficos. -->
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">Usuário</span>!</h3>
             </div>
@@ -57,8 +58,8 @@
             </div>
 
         </div>
-
-        <div class="dash"  >
+        <!-- Aqui é onde inicia o quiz, aperta o botão e da inicio no jogo. -->
+        <div class="dash">
             <div class = "quiz">
 
                 <div id="comeco_quiz" class="titulo_quiz_começo">
@@ -107,7 +108,7 @@
 <body>
 
     <script>
-
+      // Aqui serve para mostrar o nome do usuário logado naquele momento, na lateral do site.
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     </script>
@@ -129,6 +130,8 @@ var lista_perguntas = ['Quantos episódios tem a segunda temporada de Rick and M
 
 var lista_respostas = ['C', 'C', 'A', 'B', 'C', 'D', 'B', 'A', 'C', 'A'];
 
+// Variáveis que vão alterando conforme o usuário faz o quiz.
+
 var i = 0; 
 var acerto = 0;
 var erro = 0;
@@ -136,7 +139,7 @@ var cont = 0;
         // Get the canvas element
         const ctx = document.getElementById('myChart').getContext('2d');
     
-// Define your data
+// aqui é onde arruma o gráfico, como eu quero, de acertos erros, cores, de barra ou não.
 const data = {
       labels: ['erros', 'acertos'],
       datasets: [{
@@ -205,7 +208,7 @@ const data = {
       data: data,
       options: options
     });
-
+// essa função serve para gravar os resultados no banco de dados pelo ID do usuário que está logado no momento.
 function gravar_resultado(acertos, erros) {
     // Dados do resultado do quiz
     var usuarioId = sessionStorage.getItem("ID_USUARIO")
@@ -241,6 +244,8 @@ fetch(url, options)
   });
 
 }
+
+// aqui é a função que troca as perguntas as respostas e as fotos, ligado com o quiz.js
 
 function proxima() {
 
@@ -339,25 +344,19 @@ function mostrar_grafico() {
 
 }
 
-
+//  essa função serve para adicionar acertos no banco de dados conforme ele faz o quiz.
 function ver_resposta(nome_botao) {
 
     if (cont == i) {
         if (lista_respostas[i] == nome_botao) {
             acerto++
 
-            console.log(acerto)
-
-            //  .style.backgroundColor = 'green'
-
-            // changeColor('green');
-            // bgChange() 
+            console.log(acerto) 
 
             setTimeout(() => {
 
                 proxima()
-                // id.style.backgroundColor = 'white'
-                // changeColor('white');
+               
 
             }, 500)
 
