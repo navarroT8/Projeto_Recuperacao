@@ -113,6 +113,8 @@
             })
         }).then(function (resposta) {
 
+// mais algumas condicionais
+
             if (resposta.ok) {
                 window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
                 window.location = "/dashboard/mural.html"
