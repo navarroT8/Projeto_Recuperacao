@@ -58,31 +58,22 @@
                 <div class="container">
                     <h1>Editar um aviso</h1>
                     <div class="div-form">
-                        <label>
-                            ID:
-                            <br>
-                            <input id="input_id" maxlength="100" type="text" style="color: rgb(196, 196, 196)" disabled>
-                        </label>
-                        <label>
-                            Autor:
-                            <br>
-                            <input id="input_nome" maxlength="100" type="text" style="color: rgb(196, 196, 196)"
-                                disabled>
-                        </label>
+
                         <label>
                             Título:
                             <br>
-                            <input id="input_titulo" maxlength="100" type="text" style="color: rgb(196, 196, 196)"
-                                disabled>
+                            <textarea id="input_titulo" maxlength="100" type="text" style="color: rgb(196, 196, 196)"></textarea>
                         </label>
                         <br>
+                        
                         <label>
                             Descrição (máximo de 250 caracteres):
                             <br>
                             <textarea id="textarea_descricao" maxlength="250" rows="5"></textarea>
                         </label>
                         <br>
-                        <button onclick="editar()">Editar</button>
+
+                        <button onclick="publicar()">Editar</button>
                     </div>
 
                 </div>
@@ -102,22 +93,24 @@
         console.log("Criar função de trazer informações de post escolhido");
     }
 
-    function editar() {
-        fetch(`/avisos/editar/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
-            method: "PUT",
+    function publicar() {
+        fetch(`/avisos/publicar/${sessionStorage.getItem("ID_USUARIO")}`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                descricao: textarea_descricao.value
+                titulo: textarea_descricao.value,
+                descricao: input_titulo.value
             })
         }).then(function (resposta) {
 
             // mais algumas condicionais
 
             if (resposta.ok) {
-                window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                window.location = "/dashboard/mural.html"
+                window.alert("Aviso publicado com sucesso pelo usuario de email: " + sessionStorage.NOME_USUARIO + "!");
+                textarea_descricao.value=""
+                input_titulo.value=""
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -127,5 +120,4 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
-
 </script>
