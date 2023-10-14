@@ -133,14 +133,22 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
 
+
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.idUsuario;
 
-                    setTimeout(function () {
-                        window.location = "../dashboard/quiz2.html";
-                    }, 1000); // isso é para apenas para exibir o loading
-
+                    // Aqui estou verificando se o usuário é admin ou não
+                    if (json.ehAdmin == 1) {
+                        setTimeout(function () {
+                            window.location="./admin.html";                     
+                        }, 1000); // isso é para apenas para exibir o loading
+                    }
+                    else{
+                        setTimeout(function () {
+                            window.location = "../dashboard/quiz2.html";
+                        }, 1000); // isso é para apenas para exibir o loading
+                    }
                 });
 
             } else {
