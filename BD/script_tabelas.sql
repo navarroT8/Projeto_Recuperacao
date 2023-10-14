@@ -1,14 +1,15 @@
 create database projeto_individual;
 use projeto_individual;
 
- 
+SELECT * FROM aviso; 
 
 CREATE TABLE usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(50),
 email VARCHAR(50),
 cpf char(14),
-senha VARCHAR(50)
+senha VARCHAR(50),
+ehAdmin TINYINT(1) DEFAULT 0
 );
 
 CREATE TABLE aviso (
@@ -56,3 +57,4 @@ DELETE FROM quiz WHERE fkUsuario = 2;
 
 select * from quiz;
 select * from usuario;
+
