@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <link rel="shortcut icon" href="../img/icone_site.jpg" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Dashboards</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="dashboards.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+  <script src="../js/funcoes.js"></script>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- scripts do Chart.js - 2022-1 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!--FONT AWESOME-->
+  <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+  <div class="janela">
+    
+    <div class="header-left">
+      <h1><img src="https://logosmarcas.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
+          style="width: 270px; height: 160px;"></h1>
+
+      <div class="hello">
+        <h3>
+          Olá, <span id="b_usuario">usuário</span>!<br>
+          Você é o Usuário número: <span id="id_usuario">Teste</span>
+        </h3>
+      </div>
+      <div class="btn-nav" onclick="window.location = '../admin/admin.html'">
+        <h3 href="../admin/admin.html">Quiz</h3>
+      </div>
+      <div onclick="window.location = '../admin/aviso-admin.html'" class="btn-nav">
+        <h3 href="../admin/aviso-admin.html">Avisos</h3>
+      </div>
+
+      <div class="btn-logout" onclick="limparSessao()">
+        <h3>Sair</h3>
+      </div>
+    </div>
+
+    <div class="dash">
+      <div class="btns-dash">
+        <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
+      </div>
+    </div>
+
+
+</body>
+
+</html>
+
+<body>
+
+
+
+  <div>
+    <h1>Câmaras</h1>
+    <section style="width: 80%; margin: auto;">
+      <canvas id="mychartTeste"></canvas>
+  </div>
+  </div>
+
+  <script>
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    id_usuario.innerHTML = sessionStorage.ID_USUARIO;
+
+  </script>
+
+</body>
+<script>
+  // Aqui é um vetor onde estou guardando as perguntas do quiz
+  var lista_perguntas = ['Quantos episódios tem a segunda temporada de Rick and Morty?', 'Qual o episódio em que o Rick se transforma em um picles?', 'Qual o nome da espécie das cabeças gigantes no episódio Planeta Música?', 'Esses são os criadores de Rick and Morty, qual o nome deles?', 'Qual o nome desse personagem em inglês?', 'Qual o nome da dança que o Tiny Rick inventa durante o baile? (em inglês)', 'Esta imagem foi retirada de qual episódio?', 'Qual era o nome "de escravo" do Snowball?', 'O que aconteceu com o Evil Morty na 3ª temporada?', 'Qual o método que o Morty desenvolveu para descobrir quem é ou não um parasita?'];
+  // Get the canvas element
+  const ctx = document.getElementById('myChart').getContext('2d');
+
+  // 
+  const data = {
+    labels: [],
+    datasets: [{
+      label: 'Tentativa',
+      data: [],
+      backgroundColor: ['#32b9cd'],
+      borderColor: ['#32cd44'],
+      borderWidth: 2
+    }]
+  };
+
+  // 
+  const options = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: lista_perguntas.length,
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        },
+        ticks: {
+          font: {
+            weight: 'bold'
+          }
+        }
+      },
+      x: {
+        grid: {
+          display: false
+        },
+        ticks: {
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: 'Erros e Acertos',
+        font: {
+          size: 20,
+          weight: 'bold'
+        }
+      },
+      legend: {
+        position: 'top',
+        labels: {
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    },
+    animation: {
+      duration: 2000,
+      easing: 'easeInOutQuart'
+    }
+  };
+
+  // Create the chart
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+  buscar_resultado()
+
+  // Aqui estou fazendo uma função para puxar o resultado conforme o ID do usuário logado naquele momento 
+
+  function buscar_resultado() {
+    var usuarioId = sessionStorage.getItem("ID_USUARIO")
+    var url = `http://localhost:3333/usuarios/quiz/${usuarioId}`; // 
+    // Perform the request
+    fetch(url)
+      .then(response => {
+        if (response.ok) {
+          response.json()
+            .then(json => {
+
+              data.datasets[0].data = []
+              data.labels = [];
+              var num_tentativa = 1;
+              for (var i = json.length - 1; i >= 0; i--) {
+
+                data.datasets[0].data.push(json[i].acertos);
+                data.labels.push(num_tentativa);
+                num_tentativa++;
+              }
+              myChart.update()
+            })
+        } else {
+          throw new Error('Erro ao buscar o resultado do quiz.');
+        }
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+      });
+  }
+
+</script>
+
+</html>
