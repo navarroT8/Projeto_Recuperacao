@@ -2,102 +2,106 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../img/icone_site.jpg" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+  <link rel="shortcut icon" href="../img/icone_site.jpg" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="dashboards.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
-    <script src="../js/funcoes.js"></script>
-    <script src="quiz.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="dashboards.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+  <script src="../js/funcoes.js"></script>
+  <script src="quiz.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
 
-<link rel="stylesheet" href="../css/estilo.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <img src="" alt="">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilo.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <img src="" alt="">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 
-    <!-- scripts do Chart.js - 2022-1 -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- scripts do Chart.js - 2022-1 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+  <!--FONT AWESOME-->
+  <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
 <!-- Aqui é para validar a sessão, se caso nao tiver nenhum usuario conectado ele manda para o login. -->
+
 <body onload="validarSessao()">
 
 
-    <div class="janela">
-        <div class="header-left">
-            <h1><img src="https://logosmarcas.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
-                    style="width: 270px; height: 160px;"></h1>
-              <!-- Botões para navegar na aba de quiz e gráficos. -->
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">Usuário</span>!</h3>
-            </div>
-            <div onclick="window.location = '../dashboard/quiz2.html'" class="btn-nav">
-                <h3>Quiz</h3>
-            </div>
-            <div onclick="window.location = '../dashboard/dashboards.html'" class="btn-nav">
-                <h3 href="../dashboard/dashboards.html">Gráficos de Tentativas</h3>
-            </div>
-            <div onclick="window.location = '../dashboard/ranking.html'" class="btn-nav">
-                <h3 href="../dashboard/ranking.html">Ranking</h3>
-            </div>
+  <div class="janela">
+    <div class="header-left">
+      <h1><img src="https://logosmarcas.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
+          style="width: 270px; height: 160px;"></h1>
+      <!-- Botões para navegar na aba de quiz e gráficos. -->
+      <div class="hello">
+        <h3>
+          Olá, <span id="b_usuario">usuário</span>!<br>
+          Você é o usuário número: <span id="id_usuario">Teste</span>
+        </h3>
+      </div>
+      <div onclick="window.location = '../dashboard/quiz2.html'" class="btn-nav">
+        <h3>Quiz</h3>
+      </div>
+      <div onclick="window.location = '../dashboard/dashboards.html'" class="btn-nav">
+        <h3 href="../dashboard/dashboards.html">Gráficos de Tentativas</h3>
+      </div>
+      <div onclick="window.location = '../dashboard/ranking.html'" class="btn-nav">
+        <h3 href="../dashboard/ranking.html">Ranking</h3>
+      </div>
 
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
+      <div class="btn-logout" onclick="limparSessao()">
+        <h3>Sair</h3>
+      </div>
 
-        </div>
-        <!-- Aqui é onde inicia o quiz, aperta o botão e da inicio no jogo. -->
-        <div class="dash">
-            <div class = "quiz">
-
-                <div id="comeco_quiz" class="titulo_quiz_começo">
-                        <h2>Vamos Começar!</h2>
-                        <img class="titulo_quiz" src="img/inicio_quiz.webp"><br>
-                        <button class="btn_quiz" onclick="iniciar_quiz()">Iniciar Quiz!</button>
-                </div>
-
-                <div class="perguntas" id="questoes" style="display: none;">
-
-                    <div id="img"></div>
-
-                    <div id="aparecer" style="color: white"></div>
-
-                    <div class="respostas">
-                        <button id="A" class="btn_resp" onclick="ver_resposta(this.name);" name="A">9</button>
-                        <button id="B" class="btn_resp" onclick="ver_resposta(this.name);" name="B">11</button>
-                        <button id="C" class="btn_resp" onclick="ver_resposta(this.name);" name="C">10</button>
-                        <button id="D" class="btn_resp" onclick="ver_resposta(this.name);" name="D">12</button>
-                        <div style="color: white" id="div_mensagem"></div>
-                    </div>
-
-            </div>    
-        </div>
-        <div id="ir_cadastro" class="botao_final" style="display: none;">
-            <div>
-            .
-            </div>
-
-            <div style="width: 700px; height: 400px;">
-                <canvas id="myChart"></canvas>
-              </div>
-        </div>
-        </div>
-            </div>
-        </div>
     </div>
+    <!-- Aqui é onde inicia o quiz, aperta o botão e da inicio no jogo. -->
+    <div class="dash">
+      <div class="quiz">
+
+        <div id="comeco_quiz" class="titulo_quiz_começo">
+          <h2>Vamos Começar!</h2>
+          <img class="titulo_quiz" src="img/inicio_quiz.webp"><br>
+          <button class="btn_quiz" onclick="iniciar_quiz()">Iniciar Quiz!</button>
+        </div>
+
+        <div class="perguntas" id="questoes" style="display: none;">
+
+          <div id="img"></div>
+
+          <div id="aparecer" style="color: white"></div>
+
+          <div class="respostas">
+            <button id="A" class="btn_resp" onclick="ver_resposta(this.name);" name="A">9</button>
+            <button id="B" class="btn_resp" onclick="ver_resposta(this.name);" name="B">11</button>
+            <button id="C" class="btn_resp" onclick="ver_resposta(this.name);" name="C">10</button>
+            <button id="D" class="btn_resp" onclick="ver_resposta(this.name);" name="D">12</button>
+            <div style="color: white" id="div_mensagem"></div>
+          </div>
+
+        </div>
+      </div>
+      <div id="ir_cadastro" class="botao_final" style="display: none;">
+        <div>
+          .
+        </div>
+
+        <div style="width: 700px; height: 400px;">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
     </div>
+  </div>
+  </div>
+  </div>
+  </div>
 
 
 
@@ -107,40 +111,41 @@
 
 <body>
 
-    <script>
-      // Aqui serve para mostrar o nome do usuário logado naquele momento, na lateral do site.
-        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+  <script>
+    // Aqui serve para mostrar o nome do usuário logado naquele momento, na lateral do site.
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    id_usuario.innerHTML = sessionStorage.ID_USUARIO;
 
-    </script>
+  </script>
 
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <script>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <script>
 
-      // Aqui são os vetores do quiz por completo
+    // Aqui são os vetores do quiz por completo
 
-var lista_imagem = ['<img class="img_p" src="img/rickizinho.jpg">', '<img class="img_p" src="img/rick_picles.jpg">', '<img class="img_p" src="img/cabeças_gigantes.png">', '<img class="img_p" src="img/criadores_rickandmorty.jpg">', ' <img class="img_p" src="img/sr_bunda_cagada.jpg">', '<img class="img_p" src="img/rickizinho2.png">', ' <img class="img_p" src="img/rick_terraqueo.jpg">', ' <img class="img_p" src="img/snuflles.jpg">', ' <img class="img_p" src="img/evil_morty.jpg">', ' <img class="img_p" src="img/infestação.jpg">'];
+    var lista_imagem = ['<img class="img_p" src="img/rickizinho.jpg">', '<img class="img_p" src="img/rick_picles.jpg">', '<img class="img_p" src="img/cabeças_gigantes.png">', '<img class="img_p" src="img/criadores_rickandmorty.jpg">', ' <img class="img_p" src="img/sr_bunda_cagada.jpg">', '<img class="img_p" src="img/rickizinho2.png">', ' <img class="img_p" src="img/rick_terraqueo.jpg">', ' <img class="img_p" src="img/snuflles.jpg">', ' <img class="img_p" src="img/evil_morty.jpg">', ' <img class="img_p" src="img/infestação.jpg">'];
 
-var lista_perguntas = ['Quantos episódios tem a segunda temporada de Rick and Morty?', 'Qual o episódio em que o Rick se transforma em um picles?', 'Qual o nome da espécie das cabeças gigantes no episódio Planeta Música?', 'Esses são os criadores de Rick and Morty, qual o nome deles?', 'Qual o nome desse personagem em inglês?', 'Qual o nome da dança que o Tiny Rick inventa durante o baile? (em inglês)', 'Esta imagem foi retirada de qual episódio?', 'Qual era o nome "de escravo" do Snowball?', 'O que aconteceu com o Evil Morty na 3ª temporada?', 'Qual o método que o Morty desenvolveu para descobrir quem é ou não um parasita?'];
+    var lista_perguntas = ['Quantos episódios tem a segunda temporada de Rick and Morty?', 'Qual o episódio em que o Rick se transforma em um picles?', 'Qual o nome da espécie das cabeças gigantes no episódio Planeta Música?', 'Esses são os criadores de Rick and Morty, qual o nome deles?', 'Qual o nome desse personagem em inglês?', 'Qual o nome da dança que o Tiny Rick inventa durante o baile? (em inglês)', 'Esta imagem foi retirada de qual episódio?', 'Qual era o nome "de escravo" do Snowball?', 'O que aconteceu com o Evil Morty na 3ª temporada?', 'Qual o método que o Morty desenvolveu para descobrir quem é ou não um parasita?'];
 
-var lista_respostas = ['C', 'C', 'A', 'B', 'C', 'D', 'B', 'A', 'C', 'A'];
+    var lista_respostas = ['C', 'C', 'A', 'B', 'C', 'D', 'B', 'A', 'C', 'A'];
 
-// Variáveis que vão alterando conforme o usuário faz o quiz.
+    // Variáveis que vão alterando conforme o usuário faz o quiz.
 
-var i = 0; 
-var acerto = 0;
-var erro = 0;
-var cont = 0;
-        // Get the canvas element
-        const ctx = document.getElementById('myChart').getContext('2d');
-    
-// aqui é onde arruma o gráfico, como eu quero, de acertos erros, cores, de barra ou não.
-const data = {
+    var i = 0;
+    var acerto = 0;
+    var erro = 0;
+    var cont = 0;
+    // Get the canvas element
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    // aqui é onde arruma o gráfico, como eu quero, de acertos erros, cores, de barra ou não.
+    const data = {
       labels: ['erros', 'acertos'],
       datasets: [{
         label: 'Sample Data',
@@ -208,49 +213,49 @@ const data = {
       data: data,
       options: options
     });
-// essa função serve para gravar os resultados no banco de dados pelo ID do usuário que está logado no momento.
-function gravar_resultado(acertos, erros) {
-    // Dados do resultado do quiz
-    var usuarioId = sessionStorage.getItem("ID_USUARIO")
-var resultado = {
-  acerto: acertos,
-  erro: erros,
-  usuario: usuarioId
-  
-};
+    // essa função serve para gravar os resultados no banco de dados pelo ID do usuário que está logado no momento.
+    function gravar_resultado(acertos, erros) {
+      // Dados do resultado do quiz
+      var usuarioId = sessionStorage.getItem("ID_USUARIO")
+      var resultado = {
+        acerto: acertos,
+        erro: erros,
+        usuario: usuarioId
 
-// Configurações da requisição
-var url = 'http://localhost:3333/usuarios/quiz'; // Substitua pela URL correta da sua API
-var options = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(resultado)
-};
+      };
 
-// Realiza a requisição
-console.log("ready to fetch")
-fetch(url, options)
-  .then(response => {
-    if (response.ok) {
-      console.log('Resultado do quiz gravado com sucesso!');
-    } else {
-      throw new Error('Erro ao gravar o resultado do quiz.');
+      // Configurações da requisição
+      var url = 'http://localhost:3333/usuarios/quiz'; // Substitua pela URL correta da sua API
+      var options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(resultado)
+      };
+
+      // Realiza a requisição
+      console.log("ready to fetch")
+      fetch(url, options)
+        .then(response => {
+          if (response.ok) {
+            console.log('Resultado do quiz gravado com sucesso!');
+          } else {
+            throw new Error('Erro ao gravar o resultado do quiz.');
+          }
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+        });
+
     }
-  })
-  .catch(error => {
-    console.error('Erro:', error);
-  });
 
-}
+    // aqui é a função que troca as perguntas as respostas e as fotos, ligado com o quiz.js
 
-// aqui é a função que troca as perguntas as respostas e as fotos, ligado com o quiz.js
-
-function proxima() {
+    function proxima() {
 
 
-    if (i == lista_perguntas.length - 1) {
+      if (i == lista_perguntas.length - 1) {
         questoes.style.display = 'none';
         ir_cadastro.style.display = 'block';
         data.datasets[0].data = []
@@ -258,77 +263,77 @@ function proxima() {
         data.datasets[0].data.push(acerto)
         myChart.update()
         gravar_resultado(acerto, erro)
-    }
-    else {
+      }
+      else {
         i++;
         cont++;
-    }
+      }
 
-    if (i < lista_perguntas.length) {
+      if (i < lista_perguntas.length) {
 
         aparecer.innerHTML = `${lista_perguntas[i]}`;
         img.innerHTML = `${lista_imagem[i]}`;
 
-    }
+      }
 
-    if (i == 1) {
+      if (i == 1) {
 
         A.innerHTML = `Temp 3 Ep 7`;
         B.innerHTML = `Temp 3 Ep 2`;
         C.innerHTML = `Temp 3 Ep 3`;
         D.innerHTML = `Temp 3 Ep 4`;
-    }
-    if (i == 2) {
+      }
+      if (i == 2) {
 
         A.innerHTML = `Cromulons`;
         B.innerHTML = `Cabeças Gigantes`;
         C.innerHTML = `Giants`;
         D.innerHTML = `Cronenbergs`;
-    }
-    if (i == 3) {
+      }
+      if (i == 3) {
 
         A.innerHTML = `Justin Timberlake e Dan Timber`;
         B.innerHTML = `Justin Roiland e Dan Harmour`;
         C.innerHTML = `Jonas Cronenberg e Danny Willians`;
         D.innerHTML = `Jonas Harmour e Dan Roiland`;
-    }
-    if (i == 4) {
+      }
+      if (i == 4) {
 
         A.innerHTML = `Mr WeirdButt`;
         B.innerHTML = `Mr PoppyHatHole`;
         C.innerHTML = `Mr PoppyButtHole`;
         D.innerHTML = `Mr HatButtHole`;
-    }
-    if (i == 5) {
+      }
+      if (i == 5) {
 
         A.innerHTML = `I'm Old`;
         B.innerHTML = `Tiny Rick Song`;
         C.innerHTML = `Help me I'm gonna die`;
         D.innerHTML = `Let me Out`;
-    }
-    if (i == 6) {
+      }
+      if (i == 6) {
 
         A.innerHTML = `Temp 1 Ep 5`;
         B.innerHTML = `Temp 2 Ep 6`;
         C.innerHTML = `Temp 2 Ep 5`;
         D.innerHTML = `Temp 2 Ep 7`;
-    }
-    if (i == 7) {
+      }
+      if (i == 7) {
 
         A.innerHTML = `Snuffles`; A
         B.innerHTML = `Puffles`;
         C.innerHTML = `Troubles`;
         D.innerHTML = `Ruffles`;
-    }
-    if (i == 8) {
+      }
+      if (i == 8) {
 
         A.innerHTML = `Foi teletransportado para uma dimensão e vive como uma criança normal`;
         B.innerHTML = `Ele morreu `;
         C.innerHTML = `Virou presidente da cidadela`; C
         D.innerHTML = `Está preso`;
-    };
+      };
 
-    if (i == 9) {
+      if (i == 9) {
 
         A.innerHTML = `Parasitas não criam memórias ruins`; A
         B.innerHTML = `Parasitas não são humanos normais`;
@@ -336,48 +341,48 @@ function proxima() {
         D.innerHTML = `Parasitas não conseguem admitir que estão errados`;
 
 
+      };
+
     };
 
-};
+    function mostrar_grafico() {
 
-function mostrar_grafico() {
+    }
 
-}
+    //  essa função serve para adicionar acertos no banco de dados conforme ele faz o quiz.
+    function ver_resposta(nome_botao) {
 
-//  essa função serve para adicionar acertos no banco de dados conforme ele faz o quiz.
-function ver_resposta(nome_botao) {
-
-    if (cont == i) {
+      if (cont == i) {
         if (lista_respostas[i] == nome_botao) {
-            acerto++
+          acerto++
 
-            console.log(acerto) 
+          console.log(acerto)
 
-            setTimeout(() => {
+          setTimeout(() => {
 
-                proxima()
-               
+            proxima()
 
-            }, 500)
+
+          }, 500)
 
         }
         else {
-            erro++
-            console.log(erro)
-            //    id.style.backgroundColor = 'red'
+          erro++
+          console.log(erro)
+          //    id.style.backgroundColor = 'red'
 
 
 
-            setTimeout(() => {
-                proxima()
-                //  id.style.backgroundColor = 'white'
-            }, 500)
+          setTimeout(() => {
+            proxima()
+            //  id.style.backgroundColor = 'white'
+          }, 500)
 
         };
+      };
     };
-};
 
-      </script>
+  </script>
 </body>
 
 </html>
