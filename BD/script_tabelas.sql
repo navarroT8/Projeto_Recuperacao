@@ -1,7 +1,7 @@
 create database projeto_individual;
 use projeto_individual;
-
-SELECT * FROM aviso; 
+select * from 
+aviso;
 
 CREATE TABLE usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -29,6 +29,21 @@ constraint fkUsuario foreign key (fkUsuario)
 references usuario (idUsuario)
 );
 
+CREATE TABLE pergunta (
+	idPergunta int primary key auto_increment,
+    mensagem varchar(100)
+);
+
+CREATE TABLE alternativa (
+	idAlternativa int primary key auto_increment,
+    mensagem varchar(45),
+    fkPergunta int,
+    ehCorreta TINYINT(1),
+	constraint fkPergunta foreign key (fkPergunta)
+	references pergunta (idPergunta)
+);
+
+DROP TABLE pergunta;
 SELECT MAX(quiz.Acertos) AS Acertos, usuario.nome
 FROM quiz
 JOIN usuario ON quiz.fkUsuario = usuario.idUsuario
@@ -57,4 +72,7 @@ DELETE FROM quiz WHERE fkUsuario = 2;
 
 select * from quiz;
 select * from usuario;
+
+ALTER TABLE usuario
+ADD COLUMN ehAdmin TINYINT(1) NOT NULL DEFAULT 0;
 
