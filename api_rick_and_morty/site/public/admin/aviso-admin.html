@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaTech | Página Inicial</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./dashboards.css">
+    <script src="../js/funcoes.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body onload="listarInfosDeUm()" style="background-color: #161618;">
+    <!-- <body onload="validarSessao()"> -->
+
+    <div class="janela">
+
+    <div class="header-left">
+      <h1><img src="https://logosmarcas.net/wp-content/uploads/2022/01/Rick-And-Morty-Logo.png"
+          style="width: 270px; height: 160px;"></h1>
+
+      <div class="hello">
+        <h3>
+          Olá, <span id="b_usuario">usuário</span>!<br>
+          Você é o Usuário número: <span id="id_usuario">Teste</span>
+        </h3>
+      </div>
+      <div class="btn-nav" onclick="window.location = '../admin/quiz-admin.html'">
+        <h3 href="../dashboard/quiz2.html">Quiz</h3>
+      </div>
+      <div onclick="window.location = '../dashboard/edicao-aviso.html'" class="btn-nav">
+        <h3 href="../dashboard/ranking.html">Avisos</h3>
+      </div>
+
+      <div class="btn-logout" onclick="limparSessao()">
+        <h3>Sair</h3>
+      </div>
+    </div>
+
+        <div class="dash-right">
+
+            <div class="avisos">
+                <div class="container">
+                    <h1>Editar um aviso</h1>
+                    <div class="div-form">
+
+                        <label>
+                            Título:
+                            <br>
+                            <textarea id="input_titulo" maxlength="100" type="text" style="color: rgb(196, 196, 196)"></textarea>
+                        </label>
+                        <br>
+                        
+                        <label>
+                            Descrição (máximo de 250 caracteres):
+                            <br>
+                            <textarea id="textarea_descricao" maxlength="250" rows="5"></textarea>
+                        </label>
+                        <br>
+
+                        <button onclick="publicar()">Editar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    //Aqui estou passando o nome e o id do usuário
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    id_usuario.innerHTML = sessionStorage.ID_USUARIO;
+
+    function listarInfosDeUm() {
+        console.log("Criar função de trazer informações de post escolhido");
+    }
+
+    function publicar() {
+        fetch(`/avisos/publicar/${sessionStorage.getItem("ID_USUARIO")}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                titulo: textarea_descricao.value,
+                descricao: input_titulo.value
+            })
+        }).then(function (resposta) {
+
+            // mais algumas condicionais
+
+            if (resposta.ok) {
+                window.alert("Aviso publicado com sucesso pelo usuario de email: " + sessionStorage.NOME_USUARIO + "!");
+                textarea_descricao.value=""
+                input_titulo.value=""
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+</script>
