@@ -33,7 +33,7 @@
 
 <!-- Aqui é para validar a sessão, se caso nao tiver nenhum usuario conectado ele manda para o login. -->
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), buscar_perguntas_quiz()">
 
 
   <div class="janela">
@@ -82,7 +82,7 @@
 
           <div id="aparecer" style="color: white"></div>
 
-          <div class="respostas">
+          <div class="respostas" id="respostas_id">
             <button id="A" class="btn_resp" onclick="ver_resposta(this.name);" name="A">9</button>
             <button id="B" class="btn_resp" onclick="ver_resposta(this.name);" name="B">11</button>
             <button id="C" class="btn_resp" onclick="ver_resposta(this.name);" name="C">10</button>
@@ -130,8 +130,27 @@
   <br>
   <br>
   <script>
-
+    function buscar_perguntas_quiz() {
+      fetch('http://localhost:3333/perguntas/listar')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          // Parse the JSON response
+          return response.json();
+        })
+        .then(data => {
+          // Process the data returned by the server
+          console.log('Data:', data);
+          dados_quiz = data;
+        })
+        .catch(error => {
+          // Handle any errors that occurred during the fetch
+          console.error('Fetch error:', error);
+        });
+    }
     // Aqui são os vetores do quiz por completo
+    let dados_quiz = [];
 
     var lista_imagem = ['<img class="img_p" src="img/rickizinho.jpg">', '<img class="img_p" src="img/rick_picles.jpg">', '<img class="img_p" src="img/cabeças_gigantes.png">', '<img class="img_p" src="img/criadores_rickandmorty.jpg">', ' <img class="img_p" src="img/sr_bunda_cagada.jpg">', '<img class="img_p" src="img/rickizinho2.png">', ' <img class="img_p" src="img/rick_terraqueo.jpg">', ' <img class="img_p" src="img/snuflles.jpg">', ' <img class="img_p" src="img/evil_morty.jpg">', ' <img class="img_p" src="img/infestação.jpg">'];
 
@@ -218,6 +237,27 @@
       options: options
     });
     // essa função serve para gravar os resultados no banco de dados pelo ID do usuário que está logado no momento.
+
+  function iniciar_quiz() {
+      comeco_quiz.style.display = 'none';
+      questoes.style.display = 'flex';
+
+      aparecer.innerHTML = `${lista_perguntas[i]}`;
+      img.innerHTML = `${lista_imagem[i]}`;
+
+      const altA = dados_quiz[i]["alternativas"][0].ehCorreta
+      const altB = dados_quiz[i]["alternativas"][1].ehCorreta
+      const altC = dados_quiz[i]["alternativas"][2].ehCorreta
+      const altD = dados_quiz[i]["alternativas"][3].ehCorreta
+
+
+        respostas_id.innerHTML = `
+          <button id="A" class="btn_resp" onclick="ver_resposta2(${altA});" name="A">${dados_quiz[i]["alternativas"][0]["mensagem"]}</button>
+          <button id="B" class="btn_resp" onclick="ver_resposta2(${altB});" name="B">${dados_quiz[i]["alternativas"][1]["mensagem"]}</button>
+          <button id="C" class="btn_resp" onclick="ver_resposta2(${altC});" name="C">${dados_quiz[i]["alternativas"][2]["mensagem"]}</button>
+          <button id="D" class="btn_resp" onclick="ver_resposta2(${altD});" name="D">${dados_quiz[i]["alternativas"][3]["mensagem"]}</button>
+        `
+  }
     function gravar_resultado(acertos, erros) {
       // Dados do resultado do quiz
       var usuarioId = sessionStorage.getItem("ID_USUARIO")
@@ -256,8 +296,42 @@
 
     // aqui é a função que troca as perguntas as respostas e as fotos, ligado com o quiz.js
 
-    function proxima() {
+    function proxima2() {
+      if (i == dados_quiz.length - 1) {
+        questoes.style.display = 'none';
+        ir_cadastro.style.display = 'block';
+        data.datasets[0].data = []
+        data.datasets[0].data.push(erro)
+        data.datasets[0].data.push(acerto)
+        myChart.update()
+        gravar_resultado(acerto, erro)
+      }
+      else {
+        i++;
+        cont++;
+        aparecer.innerHTML = `${lista_perguntas[i]}`;
+        img.innerHTML = `${lista_imagem[i]}`;
+        respostas_id.innerHTML = "";
 
+        aparecer.innerHTML = `${dados_quiz[i]["mensagem"]}`;
+        img.innerHTML = `${dados_quiz[i]["urlImagem"]}`;
+
+        const altA = dados_quiz[i]["alternativas"][0].ehCorreta
+        const altB = dados_quiz[i]["alternativas"][1].ehCorreta
+        const altC = dados_quiz[i]["alternativas"][2].ehCorreta
+        const altD = dados_quiz[i]["alternativas"][3].ehCorreta
+
+
+        respostas_id.innerHTML = `
+          <button id="A" class="btn_resp" onclick="ver_resposta2(${altA});" name="A">${dados_quiz[i]["alternativas"][0]["mensagem"]}</button>
+          <button id="B" class="btn_resp" onclick="ver_resposta2(${altB});" name="B">${dados_quiz[i]["alternativas"][1]["mensagem"]}</button>
+          <button id="C" class="btn_resp" onclick="ver_resposta2(${altC});" name="C">${dados_quiz[i]["alternativas"][2]["mensagem"]}</button>
+          <button id="D" class="btn_resp" onclick="ver_resposta2(${altD});" name="D">${dados_quiz[i]["alternativas"][3]["mensagem"]}</button>
+        `
+      }
+    };
+
+    function proxima() {
 
       if (i == lista_perguntas.length - 1) {
         questoes.style.display = 'none';
@@ -353,6 +427,26 @@
 
     }
 
+    function ver_resposta2(ehCorreta) {
+      if (i < dados_quiz.length) {
+        if (ehCorreta) {
+          acerto++
+          console.log(acerto)
+          setTimeout(() => {
+            proxima2()
+          }, 500)
+
+        }
+        else {
+          erro++
+          console.log(erro)
+          setTimeout(() => {
+            proxima2()
+          }, 500)
+        };
+      };
+
+    }
     //  essa função serve para adicionar acertos no banco de dados conforme ele faz o quiz.
     function ver_resposta(nome_botao) {
 
